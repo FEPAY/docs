@@ -13,6 +13,8 @@ tags:
     description: 어드민 관련
   - name: User
     description: 사용자 관련
+  - name: Festival
+    description: 축제 관련
   - name: Payment
     description: 결제 관련
 servers:
@@ -125,6 +127,23 @@ paths:
                     balance:
                       type: string
                       example: '15000'
+    delete:
+      tags:
+        - User
+      summary: '[Admin Only] 계정 삭제'
+      parameters:
+        - name: user_id
+          in: query
+          schema:
+            type: string
+            example: jinusong02
+      security:
+        - JSONWebTokenAuthentication: []
+      responses:
+        '204':
+          description: 삭제 성공
+        '404':
+          description: 사용자를 찾을 수 없음
   /user/balance:
     put:
       tags:
@@ -263,6 +282,29 @@ paths:
                     example: Th12312isis.Tr123123uly.Accessto123123ken
         '403':
           description: Invalid credentials
+  /festivals:
+    get:
+      tags:
+        - Festival
+      summary: 축제 목록
+      description: |
+        # 축제 고유 번호가 담긴 목록을 반환합니다.
+      responses:
+        '200':
+          description: 반환 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: '816740'
+                    name:
+                      type: string
+                      example: 청죽제
 components:
   securitySchemes:
     JSONWebTokenAuthentication:
