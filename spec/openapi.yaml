@@ -61,6 +61,48 @@ paths:
         409:
           description: 해당 ID를 가진 사용자가 이미 존재함(Conflict)
 
+  '/admin/signup':
+    post:
+      tags:
+        - Admin
+      summary: 관리자 회원가입
+      description: |
+        # 관리자 계정을 생성합니다.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - name
+                - phone
+                - closing_date
+              properties:
+                email:
+                  type: string
+                  example: "by09115@outlook.kr"
+                password:
+                  type: string
+                  example: "p@ssword"
+                name:
+                  type: string
+                  example: "김재훈"
+                phone:
+                  type: string
+                  example: "010-2432-3407"
+                closing_date:
+                  type: string
+                  example: "2019-11-21"
+      responses:
+        201:
+          description: 회원가입 성공
+        400:
+          description: 잘못된 정보
+        409:
+          description: 해당 ID를 가진 관리자가 이미 존재함(Conflict)
+
 
 components:
   schemas:
