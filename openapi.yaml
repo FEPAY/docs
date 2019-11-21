@@ -5,7 +5,7 @@ info:
   contact:
     email: by09115@outlook.kr
   x-logo:
-    url: 'https://apis.guru/openapi-template/logo.png'
+    url: 'https://scontent-gmp1-1.xx.fbcdn.net/v/t1.15752-9/73245956_1259559617557145_1696652935372472320_n.png?_nc_cat=105&_nc_ohc=5X7sQxaujgYAQmklU446v3MBQG6uFz7TzSYIwJh9vxvoGymdYx--_0GdQ&_nc_ht=scontent-gmp1-1.xx&oh=31ae817735c9b3c86319936dfbefe269&oe=5E54CABE'
   description: |
     FEPAY의 API Document입니다.
 tags:
