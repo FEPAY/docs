@@ -55,6 +55,41 @@ paths:
           description: 잘못된 정보
         '409':
           description: 해당 ID를 가진 사용자가 이미 존재함(Conflict)
+  /user/auth:
+    post:
+      tags:
+        - User
+      summary: 사용자 로그인
+      description: |
+        # 사용자의 access 토큰을 발급합니다.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - deviceId
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '201':
+          description: Login succeed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access:
+                    type: string
+                    example: Th12312isis.Tr123123uly.Accessto123123ken
+        '403':
+          description: Invalid credentials
   /admin/signup:
     post:
       tags:
@@ -100,6 +135,41 @@ paths:
           description: 잘못된 정보
         '409':
           description: 해당 ID를 가진 관리자가 이미 존재함(Conflict)
+  /admin/auth:
+    post:
+      tags:
+        - Admin
+      summary: 관리자 로그인
+      description: |
+        # 관리자의 access token을 발급합니다.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '201':
+          description: Login succeed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access:
+                    type: string
+                    example: Th12312isis.Tr123123uly.Accessto123123ken
+        '403':
+          description: Invalid credentials
 components:
   schemas:
     Email:
