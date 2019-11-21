@@ -101,6 +101,7 @@
                   "password",
                   "name",
                   "phone",
+                  "festival_name",
                   "closing_date"
                 ],
                 "properties": {
@@ -119,6 +120,10 @@
                   "phone": {
                     "type": "string",
                     "example": "010-2432-3407"
+                  },
+                  "festival_name": {
+                    "type": "string",
+                    "example": "제 4회 대덕소프트웨어마이스터고등학교 청죽제"
                   },
                   "closing_date": {
                     "type": "string",
