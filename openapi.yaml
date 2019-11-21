@@ -190,7 +190,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    user_id:
+                    id:
                       type: string
                       example: jinusong02
                     name:
@@ -202,6 +202,22 @@ paths:
                     balance:
                       type: string
                       example: '15000'
+  /user/me:
+    get:
+      tags:
+        - User
+      summary: 사용자 정보 조회(잔고 포함)
+      description: |
+        # 사용자 정보를 조회합니다.
+      security:
+        - JSONWebTokenAuthentication: []
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
   /admin/signup:
     post:
       tags:
@@ -305,6 +321,173 @@ paths:
                     name:
                       type: string
                       example: 청죽제
+  /admin/me:
+    get:
+      tags:
+        - Admin
+      summary: 관리자 정보 조회
+      description: |
+        # 관리자 정보를 조회합니다.
+      security:
+        - JSONWebTokenAuthentication: []
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    example: by09115@outlook.kr
+                  name:
+                    type: string
+                    example: 김재훈
+                  phone:
+                    type: string
+                    example: 010-2432-3407
+                  festivalName:
+                    type: string
+                    example: 청죽제
+                  closingDate:
+                    type: string
+                    example: '2019-09-11'
+                  festivalId:
+                    type: string
+                    example: '816740'
+  /payments:
+    get:
+      tags:
+        - Payment
+      summary: '[Admin Only] 결제 내역 조회'
+      security:
+        - JSONWebTokenAuthentication: []
+      responses:
+        '200':
+          description: 반환 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: 5dd6e523c5b4421770930c72
+                    festivalId:
+                      type: string
+                      example: '816740'
+                    sender:
+                      type: string
+                      example: jinu40
+                    recipient:
+                      type: string
+                      example: jinu03
+                    amount:
+                      type: integer
+                      example: 19283
+                    createdAt:
+                      type: string
+                      example: '2019-11-22T04:27:31.887'
+                    matchedAt:
+                      type: string
+                      example: '2019-11-22T04:36:08.616'
+                    closed:
+                      type: boolean
+                      example: true
+  /pay:
+    post:
+      tags:
+        - Payment
+      summary: 결제 요청
+      description: |
+        # 결제 요청
+        받으려는 돈의 액수를 입력하면, 결제 대기 모드로 전환합니다.
+      security:
+        - JSONWebTokenAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+              properties:
+                amount:
+                  type: integer
+                  example: 19283
+      responses:
+        '200':
+          description: '결제 요청 성공, 입금자를 기다리는 중...'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 5dd6e523c5b4421770930c72
+                  festivalId:
+                    type: string
+                    example: '816740'
+                  sender:
+                    type: string
+                    example: jinu40
+                  recipient:
+                    type: string
+                    example: jinu03
+                  amount:
+                    type: integer
+                    example: 19283
+                  createdAt:
+                    type: string
+                    example: '2019-11-22T04:27:31.887'
+                  matchedAt:
+                    type: string
+                    example: '2019-11-22T04:36:08.616'
+                  closed:
+                    type: boolean
+                    example: true
+    patch:
+      tags:
+        - Payment
+      summary: 결제 수락
+      description: |
+        # 결제 수락
+        입금자가 접촉을 통해 이벤트를 발생시켜 입급을 시도합니다.
+      security:
+        - JSONWebTokenAuthentication: []
+      parameters:
+        - name: recipient_id
+          in: query
+          schema:
+            type: string
+            example: jinusong02
+      responses:
+        '200':
+          description: 결제 성공.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: jinu
+                  name:
+                    type: string
+                    example: 김재훈
+                  phone:
+                    type: string
+                    example: 010-2432-3407
+                  balance:
+                    type: integer
+                    example: 30000
+                  festivalId:
+                    type: string
+                    example: '816740'
 components:
   securitySchemes:
     JSONWebTokenAuthentication:
