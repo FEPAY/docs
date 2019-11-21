@@ -36,14 +36,14 @@ paths:
             schema:
               type: object
               required:
-                - deviceId
+                - user_id
                 - password
                 - name
                 - phone
               properties:
-                deviceId:
+                user_id:
                   type: string
-                  example: "165j2214-051z-3176-b586-138o3d420071"
+                  example: "jinusong02"
                 password:
                   type: string
                   example: "p@ssword"
@@ -73,15 +73,15 @@ paths:
             schema:
               type: object
               required:
-                - deviceId
+                - user_id
                 - password
               properties:
-                email:
+                user_id:
                   type: string
-                  format: email
+                  example: "jinusong02"
                 password:
                   type: string
-                  format: password
+                  example: "p@ssword"
       responses:
         201:
           description: Login succeed
@@ -95,6 +95,58 @@ paths:
                     example: "Th12312isis.Tr123123uly.Accessto123123ken"
         403:
           description: Invalid credentials
+  '/user':
+    get:
+      tags:
+        - User
+      summary: "[Admin Only] 사용자 단일 정보 조회"
+      responses:
+        200:
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user_id:
+                      type: string
+                      example: "165j2214-051z-3176-b586-138o3d420071"
+                    name:
+                      type: string
+                      example: "김재훈"
+                    phone:
+                      type: string
+                      example: "010-2432-3407"
+
+  '/users':
+    get:
+      tags:
+        - User
+      summary: "[Admin Only] 사용자 전체 목록 조회"
+      responses:
+        200:
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user_id:
+                      type: string
+                      example: "jinusong02"
+                    name:
+                      type: string
+                      example: "김재훈"
+                    phone:
+                      type: string
+                      example: "010-2432-3407"
+                    balance:
+                      type: string
+                      example: "15000"
 
   '/admin/signup':
     post:
@@ -159,10 +211,10 @@ paths:
               properties:
                 email:
                   type: string
-                  format: email
+                  example: "by09115@outlook.kr"
                 password:
                   type: string
-                  format: password
+                  example: "p@ssword"
       responses:
         201:
           description: Login succeed
